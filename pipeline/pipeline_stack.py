@@ -22,6 +22,7 @@ class PipelineStack(core.Stack):
             id="s3-artifact",
             bucket_name=constants.ARTIFACT_BUCKET_NAME,
             removal_policy=core.RemovalPolicy.DESTROY,
+            versioned=True,
         )
 
         lambda_build = codebuild.Project(
