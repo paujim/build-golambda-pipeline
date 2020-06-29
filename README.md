@@ -1,2 +1,2 @@
 # lambda-pipeline for golang
-An AWS pipeline to deploy go lambdas
+An AWS pipeline to build go lambdas
