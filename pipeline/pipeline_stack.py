@@ -75,6 +75,7 @@ class PipelineStack(core.Stack):
         lambda_pipeline = codepipeline.Pipeline(
             scope=self,
             id="lambda-pipeline",
+            restart_execution_on_update=True,
         )
 
         source_output = codepipeline.Artifact()
