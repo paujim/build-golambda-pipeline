@@ -3,11 +3,11 @@ from aws_cdk import (
     core,
     aws_secretsmanager as secretsmanager,
     aws_codebuild as codebuild,
+    aws_codedeploy as codedeploy,
     aws_codecommit as codecommit,
     aws_codepipeline as codepipeline,
     aws_codepipeline_actions as codepipeline_actions,
     aws_lambda as lambda_, aws_s3 as s3,
-    aws_ecr as ecr,
     aws_iam as iam,
     aws_ssm as ssm,
 )
@@ -60,7 +60,6 @@ class PipelineStack(core.Stack):
                 },
                 "artifacts": {
                     "files": ["main.zip"],
-                    "name": "$ENV_NAME-lambda-$(date +%Y-%m-%d).zip"
                 }
 
             }
@@ -76,7 +75,6 @@ class PipelineStack(core.Stack):
         lambda_pipeline = codepipeline.Pipeline(
             scope=self,
             id="lambda-pipeline",
-            # artifact_bucket=artifact_bucket,
         )
 
         source_output = codepipeline.Artifact()
@@ -108,7 +106,7 @@ class PipelineStack(core.Stack):
             input=build_output,
             action_name="S3Upload",
             extract=True,
-            object_key=constants.LAMBDA_KEY,
+            object_key=constants.ARTIFACT_LAMBDA_KEY,
         )
 
         lambda_pipeline.add_stage(

@@ -10,7 +10,7 @@ app = core.App()
 
 pipeline_stack = PipelineStack(
     scope=app,
-    id="pj-pipeline",
+    id="build-golambda-pipeline",
 )
 
 app.synth()
